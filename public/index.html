@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Guns Under 20 AZN</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="head">
+        <h1>All gun skins under 20 AZN</h1>
+        <p id="meta" class="meta">Loading…</p>
+        <label class="filter">
+          Gun:
+          <select id="weaponFilter">
+            <option value="all">All</option>
+          </select>
+        </label>
+      </header>
+
+      <section class="panel">
+        <table>
+          <thead>
+            <tr>
+              <th>Weapon</th>
+              <th>Skin</th>
+              <th>AZN</th>
+              <th>USD</th>
+              <th>Offers</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

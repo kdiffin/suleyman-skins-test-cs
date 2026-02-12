@@ -1,0 +1,14 @@
+{
+  "name": "suleyman-skins",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Scrape all gun skins under 20 AZN and show them in a compact website.",
+  "scripts": {
+    "scrape": "node src/scrape.js",
+    "start": "python3 -m http.server 8080 -d public"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

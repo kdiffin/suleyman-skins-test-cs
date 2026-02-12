@@ -1,0 +1,96 @@
+{
+  "source": "https://csgoskins.gg/weapons/zeus-x27",
+  "weapon": "Zeus x27",
+  "weaponSlug": "zeus-x27",
+  "currencyTarget": "AZN",
+  "fx": {
+    "base": "USD",
+    "target": "AZN",
+    "rate": 1.7,
+    "provider": "fallback",
+    "fetchedAt": null
+  },
+  "scrapedAt": "2026-02-12T18:06:56.206Z",
+  "count": 6,
+  "limitAzn": 20,
+  "items": [
+    {
+      "weapon": "Zeus x27",
+      "weaponSlug": "zeus-x27",
+      "fullName": "Zeus x27 | Swamp DDPAT",
+      "skinName": "Swamp DDPAT",
+      "itemUrl": "https://csgoskins.gg/items/zeus-x27-swamp-ddpat",
+      "imageUrl": "https://csgoskins.gg/social-images/eyJpbWFnZV91cmwiOiJodHRwczpcL1wvY2RuLmNzZ29za2lucy5nZ1wvcHVibGljXC91aWhcL2l0ZW1zXC9hSFIwY0hNNkx5OWpaRzR1WTNObmIzTnJhVzV6TG1kbkwzQjFZbXhwWXk5cGJXRm5aWE12WW5WamEyVjBjeTlsWTI5dUwyUmxabUYxYkhSZloyVnVaWEpoZEdWa0wzZGxZWEJ2Ymw5MFlYTmxjbDlvZVY5a2FXZHBZMkZ0WDJadmNtVnpkRjlzYVdkb2RDNWlaV1JpWkdRMlpUSTFZVEEyTldZMU1HWTFPVFk0TWpOallXUTRNelkxWkRFNU1EWXpPR1EwTG5CdVp3LS1cL2F1dG9cL2F1dG9cLzg1XC9ub3RyaW1cLzI2ZDYzMTgwYWI3MTg1NjQxMjZiNTM5ZGI3OTlhODFhLnBuZyIsImFzcGVjdF9yYXRpbyI6MSwic2lnIjoiMmVlMjkwMDZmYWQ0N2E0MGYyY2U3MjFjODJjZmIxNjAifQ--.png",
+      "lowPriceUsd": 0.01,
+      "highPriceUsd": 0.03,
+      "lowPriceAzn": 0.02,
+      "offerCount": 71082,
+      "sourceCurrency": "USD"
+    },
+    {
+      "weapon": "Zeus x27",
+      "weaponSlug": "zeus-x27",
+      "fullName": "Zeus x27 | Electric Blue",
+      "skinName": "Electric Blue",
+      "itemUrl": "https://csgoskins.gg/items/zeus-x27-electric-blue",
+      "imageUrl": "https://csgoskins.gg/social-images/eyJpbWFnZV91cmwiOiJodHRwczpcL1wvY2RuLmNzZ29za2lucy5nZ1wvcHVibGljXC91aWhcL2l0ZW1zXC9hSFIwY0hNNkx5OWpaRzR1WTNObmIzTnJhVzV6TG1kbkwzQjFZbXhwWXk5cGJXRm5aWE12WW5WamEyVjBjeTlsWTI5dUwyUmxabUYxYkhSZloyVnVaWEpoZEdWa0wzZGxZWEJ2Ymw5MFlYTmxjbDl6YjJWZlpXeGxZM1J5YVdOZllteDFaVjlzYVdkb2RDNWlaVEJqTTJaa00yWXdOREE0WVdKaVlUVXhabUpoTUdVek9UTmpPRFJqWkRCbVpHUmpOV0ZsTG5CdVp3LS1cL2F1dG9cL2F1dG9cLzg1XC9ub3RyaW1cL2VkMDVhMWQ0YjNlZGVmMzEzNWY4Y2I0OGEzNTlhZDY0LnBuZyIsImFzcGVjdF9yYXRpbyI6MSwic2lnIjoiZmRiN2U4N2NlYmE5YWZhMjA3ZmY5M2FhOTU2NDgxZjkifQ--.png",
+      "lowPriceUsd": 0.03,
+      "highPriceUsd": 0.56,
+      "lowPriceAzn": 0.05,
+      "offerCount": 23492,
+      "sourceCurrency": "USD"
+    },
+    {
+      "weapon": "Zeus x27",
+      "weaponSlug": "zeus-x27",
+      "fullName": "Zeus x27 | Tosai",
+      "skinName": "Tosai",
+      "itemUrl": "https://csgoskins.gg/items/zeus-x27-tosai",
+      "imageUrl": "https://csgoskins.gg/social-images/eyJpbWFnZV91cmwiOiJodHRwczpcL1wvY2RuLmNzZ29za2lucy5nZ1wvcHVibGljXC91aWhcL2l0ZW1zXC9hSFIwY0hNNkx5OWpaRzR1WTNObmIzTnJhVzV6TG1kbkwzQjFZbXhwWXk5cGJXRm5aWE12WW5WamEyVjBjeTlsWTI5dUwyUmxabUYxYkhSZloyVnVaWEpoZEdWa0wzZGxZWEJ2Ymw5MFlYTmxjbDk2WlhWelgzUnZjMkZwWDJ4cFoyaDBMbVZtTnpSaE5UazNORFppWkdOaVpHUTVOVEZtTkdRME9UTmlZelUwTW1FeFlUQTRabVZoWlRZdWNHNW5cL2F1dG9cL2F1dG9cLzg1XC9ub3RyaW1cL2U4NmU1YjM4YzU3MmQ1MzY5MjRiN2Y5NTYyZjMwMTc3LnBuZyIsImFzcGVjdF9yYXRpbyI6MSwic2lnIjoiYTBkNDUyM2RiMTYzYjU5MjI0MzY5MWJlNGFlZjkxZDIifQ--.png",
+      "lowPriceUsd": 0.46,
+      "highPriceUsd": 2.99,
+      "lowPriceAzn": 0.78,
+      "offerCount": 29820,
+      "sourceCurrency": "USD"
+    },
+    {
+      "weapon": "Zeus x27",
+      "weaponSlug": "zeus-x27",
+      "fullName": "Zeus x27 | Earth Mandala",
+      "skinName": "Earth Mandala",
+      "itemUrl": "https://csgoskins.gg/items/zeus-x27-earth-mandala",
+      "imageUrl": "https://csgoskins.gg/social-images/eyJpbWFnZV91cmwiOiJodHRwczpcL1wvY2RuLmNzZ29za2lucy5nZ1wvcHVibGljXC91aWhcL2l0ZW1zXC9hSFIwY0hNNkx5OWpaRzR1WTNObmIzTnJhVzV6TG1kbkwzQjFZbXhwWXk5cGJXRm5aWE12WW5WamEyVjBjeTlsWTI5dUwyUmxabUYxYkhSZloyVnVaWEpoZEdWa0wzZGxZWEJ2Ymw5MFlYTmxjbDlvZVdWZlpXRnlkR2hmYldGdVpHRnNZVjlzWTE5c2FXZG9kQzQ1TjJJNE9EQTNPRFUwWkdRNVpqQTJOamN3Tnprd09UZGlOelJtTldKaE1EQmlNMk0xTlRZekxuQnVady0tXC9hdXRvXC9hdXRvXC84NVwvbm90cmltXC9kNzFhZjI3NjJiNWNmYTQ5ZWFiZDY2NDFiNWYyMTg0YS5wbmciLCJhc3BlY3RfcmF0aW8iOjEsInNpZyI6IjBmOTEyMmY3MTAzNGM4ODRlNjBlOWU3YTMyMzM1ZGE2In0-.png",
+      "lowPriceUsd": 0.57,
+      "highPriceUsd": 3.23,
+      "lowPriceAzn": 0.97,
+      "offerCount": 3111,
+      "sourceCurrency": "USD"
+    },
+    {
+      "weapon": "Zeus x27",
+      "weaponSlug": "zeus-x27",
+      "fullName": "Zeus x27 | Charged Up",
+      "skinName": "Charged Up",
+      "itemUrl": "https://csgoskins.gg/items/zeus-x27-charged-up",
+      "imageUrl": "https://csgoskins.gg/social-images/eyJpbWFnZV91cmwiOiJodHRwczpcL1wvY2RuLmNzZ29za2lucy5nZ1wvcHVibGljXC91aWhcL2l0ZW1zXC9hSFIwY0hNNkx5OWpaRzR1WTNObmIzTnJhVzV6TG1kbkwzQjFZbXhwWXk5cGJXRm5aWE12WW5WamEyVjBjeTlsWTI5dUwyUmxabUYxYkhSZloyVnVaWEpoZEdWa0wzZGxZWEJ2Ymw5MFlYTmxjbDk2WlhWelgzTjBZVzVrWVhKa1gybHpjM1ZsWDJ4cFoyaDBMalUyTUdWa05tSTRZVGMzTUdVNFpHWmxObVUwT1dKak9EVmhabUkyWldSaFpqUTRNR0ZpTkdNdWNHNW5cL2F1dG9cL2F1dG9cLzg1XC9ub3RyaW1cL2Q2YjkzYjRlZGFkNTk1MzhiMDcyNDY0MDkwMGFlMjg0LnBuZyIsImFzcGVjdF9yYXRpbyI6MSwic2lnIjoiYzU3ZmUzM2YxY2VlOTI5ZGIzZGExYjE2YjYwMWZiYWEifQ--.png",
+      "lowPriceUsd": 2.51,
+      "highPriceUsd": 34.97,
+      "lowPriceAzn": 4.27,
+      "offerCount": 13259,
+      "sourceCurrency": "USD"
+    },
+    {
+      "weapon": "Zeus x27",
+      "weaponSlug": "zeus-x27",
+      "fullName": "Zeus x27 | Olympus",
+      "skinName": "Olympus",
+      "itemUrl": "https://csgoskins.gg/items/zeus-x27-olympus",
+      "imageUrl": "https://csgoskins.gg/social-images/eyJpbWFnZV91cmwiOiJodHRwczpcL1wvY2RuLmNzZ29za2lucy5nZ1wvcHVibGljXC91aWhcL2l0ZW1zXC9hSFIwY0hNNkx5OWpaRzR1WTNObmIzTnJhVzV6TG1kbkwzQjFZbXhwWXk5cGJXRm5aWE12WW5WamEyVjBjeTlsWTI5dUwyUmxabUYxYkhSZloyVnVaWEpoZEdWa0wzZGxZWEJ2Ymw5MFlYTmxjbDk2WlhWelgzUm9kVzVrWlhKZloyOWtYMnhwWjJoMExqYzRaamszTnpRME56a3hOalZpTnpZMlpXWXdaall3WW1GaE9UQXpNREk1WW1JelpHVmhZVFV1Y0c1blwvYXV0b1wvYXV0b1wvODVcL25vdHJpbVwvNDk1MDk2NmUxNDg3ZTI0MTYwZWZiY2M4ZmM4YzFjOTgucG5nIiwiYXNwZWN0X3JhdGlvIjoxLCJzaWciOiJlN2ZkMmQ3NDVkN2ViNDVhMTU1NDk1NzE1YTQ4ZDgyNiJ9.png",
+      "lowPriceUsd": 3.66,
+      "highPriceUsd": 11.45,
+      "lowPriceAzn": 6.22,
+      "offerCount": 27635,
+      "sourceCurrency": "USD"
+    }
+  ]
+}
