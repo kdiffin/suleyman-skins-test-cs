@@ -1,10 +1,13 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { access, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { extname } from 'node:path';
 
 const BASE_URL = 'https://csgoskins.gg';
 const DISCOVERY_URL = `${BASE_URL}/`;
 const PER_WEAPON_OUTPUT_DIR = new URL('../public/data/weapons/', import.meta.url);
 const AGGREGATE_OUTPUT_PATH = new URL('../public/data/all-guns-under-20-azn.json', import.meta.url);
 const LEGACY_SCAR_OUTPUT_PATH = new URL('../public/data/scar20-under-20-azn.json', import.meta.url);
+const LOCAL_IMAGE_DIR = new URL('../public/images/skins/', import.meta.url);
 const LIMIT_AZN = 20;
 const FALLBACK_USD_TO_AZN = 1.7;
 
@@ -75,24 +78,28 @@ function isGunSlug(slug) {
 }
 
 async function discoverWeaponSlugs() {
-  const res = await fetch(DISCOVERY_URL, {
-    headers: { 'user-agent': 'Mozilla/5.0' }
-  });
+  try {
+    const res = await fetch(DISCOVERY_URL, {
+      headers: { 'user-agent': 'Mozilla/5.0' }
+    });
 
-  if (!res.ok) {
-    throw new Error(`Could not fetch discovery page: ${res.status}`);
+    if (!res.ok) {
+      throw new Error(`Could not fetch discovery page: ${res.status}`);
+    }
+
+    const html = await res.text();
+    const slugs = new Set();
+
+    for (const match of html.matchAll(/\/weapons\/([a-z0-9-]+)/g)) {
+      const slug = String(match[1] || '').trim();
+      if (isGunSlug(slug)) slugs.add(slug);
+    }
+
+    const discovered = [...slugs].filter((slug) => KNOWN_GUN_SLUGS.has(slug)).sort();
+    return discovered.length ? discovered : [...KNOWN_GUN_SLUGS].sort();
+  } catch {
+    return [...KNOWN_GUN_SLUGS].sort();
   }
-
-  const html = await res.text();
-  const slugs = new Set();
-
-  for (const match of html.matchAll(/\/weapons\/([a-z0-9-]+)/g)) {
-    const slug = String(match[1] || '').trim();
-    if (isGunSlug(slug)) slugs.add(slug);
-  }
-
-  const discovered = [...slugs].filter((slug) => KNOWN_GUN_SLUGS.has(slug)).sort();
-  return discovered.length ? discovered : [...KNOWN_GUN_SLUGS].sort();
 }
 
 async function getFxRateUsdToAzn() {
@@ -150,6 +157,113 @@ function parseItem(product, usdToAznRate, weaponSlug) {
   };
 }
 
+function toLocalImageName(item, remoteImageUrl) {
+  const itemSlug = (item?.itemUrl || item?.fullName || 'skin')
+    .toLowerCase()
+    .replace(/https?:\/\/[^/]+\//, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 80);
+
+  let ext = '.png';
+  try {
+    const pathname = new URL(remoteImageUrl).pathname;
+    const guessed = extname(pathname).toLowerCase();
+    if (guessed && guessed.length <= 5) ext = guessed;
+  } catch {
+    // keep default extension
+  }
+
+  const hash = createHash('sha1').update(remoteImageUrl).digest('hex').slice(0, 10);
+  return `${itemSlug || 'skin'}-${hash}${ext}`;
+}
+
+function base64UrlToString(value) {
+  const normalized = value.replace(/-/g, '+').replace(/_/g, '/');
+  const padded = normalized + '='.repeat((4 - (normalized.length % 4 || 4)) % 4);
+  return Buffer.from(padded, 'base64').toString('utf8');
+}
+
+function extractDirectCdnUrl(socialImageUrl) {
+  try {
+    const parsed = new URL(socialImageUrl);
+    if (parsed.hostname !== 'csgoskins.gg') return null;
+    const match = parsed.pathname.match(/^\/social-images\/([^./]+)(?:\.png)?$/i);
+    if (!match) return null;
+    const decoded = JSON.parse(base64UrlToString(match[1]));
+    const imageUrl = decoded?.image_url;
+    if (typeof imageUrl === 'string' && /^https?:\/\//i.test(imageUrl)) {
+      return imageUrl;
+    }
+  } catch {
+    // ignore decode errors
+  }
+
+  return null;
+}
+
+async function cacheImageLocally(item) {
+  const remoteImageUrl = item?.imageUrl;
+  if (!remoteImageUrl) {
+    return {
+      ...item,
+      imageUrl: null,
+      imageUrlOriginal: null
+    };
+  }
+
+  const directCdnUrl = extractDirectCdnUrl(remoteImageUrl);
+  const downloadCandidates = [directCdnUrl, remoteImageUrl].filter(Boolean);
+  const fileName = toLocalImageName(item, downloadCandidates[0]);
+  const localPath = new URL(fileName, LOCAL_IMAGE_DIR);
+  const localPublicPath = `/images/skins/${fileName}`;
+
+  try {
+    await access(localPath);
+    return {
+      ...item,
+      imageUrl: localPublicPath,
+      imageUrlOriginal: remoteImageUrl
+    };
+  } catch {
+    // file does not exist, continue
+  }
+
+  try {
+    for (const candidate of downloadCandidates) {
+      const imgRes = await fetch(candidate, {
+        headers: {
+          'user-agent': 'Mozilla/5.0',
+          referer: BASE_URL
+        }
+      });
+
+      if (!imgRes.ok) continue;
+
+      const bytes = new Uint8Array(await imgRes.arrayBuffer());
+      await writeFile(localPath, bytes);
+
+      return {
+        ...item,
+        imageUrl: localPublicPath,
+        imageUrlOriginal: candidate
+      };
+    }
+
+    return {
+      ...item,
+      imageUrl: null,
+      imageUrlOriginal: directCdnUrl || remoteImageUrl
+    };
+  } catch {
+    return {
+      ...item,
+      imageUrl: null,
+      imageUrlOriginal: directCdnUrl || remoteImageUrl
+    };
+  }
+}
+
 async function scrapeWeapon(slug, fxRate) {
   const sourceUrl = `${BASE_URL}/weapons/${slug}`;
   let res;
@@ -198,6 +312,31 @@ async function scrapeWeapon(slug, fxRate) {
   };
 }
 
+async function loadExistingPerWeaponOutputs() {
+  try {
+    const fileNames = await readdir(PER_WEAPON_OUTPUT_DIR);
+    const outputs = [];
+
+    for (const fileName of fileNames) {
+      if (!fileName.endsWith('-under-20-azn.json')) continue;
+      const fileUrl = new URL(fileName, PER_WEAPON_OUTPUT_DIR);
+      const raw = await readFile(fileUrl, 'utf8');
+      const parsed = JSON.parse(raw);
+      outputs.push({
+        source: parsed.source || `${BASE_URL}/weapons/${parsed.weaponSlug}`,
+        weaponSlug: parsed.weaponSlug,
+        weapon: parsed.weapon,
+        count: Number(parsed.count) || 0,
+        items: Array.isArray(parsed.items) ? parsed.items : []
+      });
+    }
+
+    return outputs.filter((x) => x.weaponSlug).sort((a, b) => a.weapon.localeCompare(b.weapon));
+  } catch {
+    return [];
+  }
+}
+
 async function main() {
   const weaponSlugs = await discoverWeaponSlugs();
   if (weaponSlugs.length === 0) throw new Error('No gun slugs discovered on weapons index.');
@@ -206,6 +345,8 @@ async function main() {
 
   const scrapedAt = new Date().toISOString();
   const perWeaponOutputs = [];
+
+  await mkdir(LOCAL_IMAGE_DIR, { recursive: true });
 
   for (const slug of weaponSlugs) {
     try {
@@ -218,9 +359,11 @@ async function main() {
     await sleep(220);
   }
 
+  const outputsForData = perWeaponOutputs.length > 0 ? perWeaponOutputs : await loadExistingPerWeaponOutputs();
+
   await mkdir(PER_WEAPON_OUTPUT_DIR, { recursive: true });
 
-  for (const weaponOutput of perWeaponOutputs) {
+  for (const weaponOutput of outputsForData) {
     const perWeaponPath = new URL(`${weaponOutput.weaponSlug}-under-20-azn.json`, PER_WEAPON_OUTPUT_DIR);
     const fileData = {
       source: weaponOutput.source,
@@ -243,11 +386,18 @@ async function main() {
     await writeFile(perWeaponPath, `${JSON.stringify(fileData, null, 2)}\n`, 'utf8');
   }
 
-  const items = perWeaponOutputs
-    .flatMap((x) => x.items)
+  const itemsWithLocalImages = [];
+  const sourceItems = outputsForData.flatMap((x) => x.items);
+
+  for (const item of sourceItems) {
+    itemsWithLocalImages.push(await cacheImageLocally(item));
+    await sleep(25);
+  }
+
+  const items = itemsWithLocalImages
     .sort((a, b) => a.weapon.localeCompare(b.weapon) || a.lowPriceAzn - b.lowPriceAzn || a.lowPriceUsd - b.lowPriceUsd);
 
-  const weaponSummary = perWeaponOutputs.map((x) => ({
+  const weaponSummary = outputsForData.map((x) => ({
     weapon: x.weapon,
     weaponSlug: x.weaponSlug,
     count: x.count
@@ -273,7 +423,7 @@ async function main() {
 
   await writeFile(AGGREGATE_OUTPUT_PATH, `${JSON.stringify(output, null, 2)}\n`, 'utf8');
 
-  const scarOutput = perWeaponOutputs.find((x) => x.weaponSlug === 'scar-20');
+  const scarOutput = outputsForData.find((x) => x.weaponSlug === 'scar-20');
   if (scarOutput) {
     const legacyData = {
       source: `${BASE_URL}/weapons/scar-20`,

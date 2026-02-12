@@ -4,7 +4,10 @@ This project includes:
 
 - A Node.js scraper that reads all gun pages from CSGOSKINS.GG JSON-LD.
 - Automatic per-gun JSON output on every `npm run scrape`.
+- Local image caching into `public/images/skins/` to avoid cross-origin image blocking on deploy.
 - A compact static website that shows skins priced at or below 20 AZN.
+- Click-to-preview modal for larger skin images.
+- Mobile-friendly horizontal table scrolling.
 
 ## Run
 

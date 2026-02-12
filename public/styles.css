@@ -59,9 +59,16 @@ body {
   background: var(--panel);
 }
 
+.table-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 700px;
 }
 
 th, td {
@@ -80,6 +87,20 @@ th {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.skin-button {
+  border: none;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+}
+
+.skin-button:hover span {
+  text-decoration: underline;
 }
 
 .skin img {
@@ -102,3 +123,59 @@ a {
 }
 
 a:hover { text-decoration: underline; }
+
+.preview-modal {
+  width: min(92vw, 760px);
+  border: 1px solid #2a3a5e;
+  border-radius: 12px;
+  padding: 16px;
+  background: #0b1220;
+  color: var(--txt);
+}
+
+.preview-modal::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.preview-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #2a3a5e;
+  display: block;
+}
+
+.preview-title {
+  margin: 10px 0 2px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.preview-close {
+  float: right;
+  border: 1px solid #314569;
+  background: #111827;
+  color: #dbeafe;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    margin: 10px auto;
+    padding: 0 8px 18px;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    font-size: 0.82rem;
+  }
+
+  .skin img {
+    width: 36px;
+    height: 27px;
+  }
+}
